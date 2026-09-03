@@ -111,7 +111,7 @@ image_dataset = Dataset[List[ImageInput], ImageModerationResult, Any](
 async def main():
     retry_config = RetryConfig(
         stop=tenacity.stop_after_attempt(10),
-        wait=tenacity.wait_full_jitter(multiplier=0.5, max=15),
+        wait=tenacity.wait_exponential(multiplier=1, min=2, max=30),    # handle LLM flakiness with exponential backoff
     )
 
     report = await image_dataset.evaluate(

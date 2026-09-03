@@ -9,7 +9,6 @@ Note: Integration tests make REAL API calls to verify connectivity.
 They are marked with pytest markers to allow selective running.
 """
 
-import os
 import pytest
 from pathlib import Path
 from pydantic_ai import Agent, models

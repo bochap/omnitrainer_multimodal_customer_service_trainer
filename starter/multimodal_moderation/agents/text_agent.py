@@ -1,6 +1,6 @@
 from pydantic_ai import Agent
 from multimodal_moderation.types.model_choice import ModelChoice
-from multimodal_moderation.types.moderation_result import ModerationResult, TextModerationResult
+from multimodal_moderation.types.moderation_result import TextModerationResult
 
 
 MODERATION_INSTRUCTIONS = """
@@ -22,6 +22,9 @@ Detect if:
 - the tone of the message is unfriendly
 - the tone of the message is unprofessional
 - the message contains any personally-identifiable information (PII)
+- the message contains any hate speech, derogatory slurs, harassment, or discriminatory language targeting protected groups
+- the message contains any unsolicited promotional content, phishing links, crypto solicitations, or repetitive spam
+- the message contains any factually false, deceptive, or unauthorized claims regarding ACME warranty
 </instructions>
 
 <output>

@@ -137,6 +137,60 @@ cases: List[Case[List[TextInput], TextModerationResult, Any]] = [
             ),
         ),
     ),
+    Case(
+        name="text_with_hate_speech",
+        inputs=[TextInput(text_file=get_test_data_path("hate_speech_text.txt"))],
+        metadata={"category": "text_moderation"},
+        evaluators=(
+            TextModerationCheck(
+                expected_pii=False,
+                expected_unfriendly=True,
+                expected_unprofessional=True,
+                expected_hate_speech=True,
+            ),
+            LLMJudge(
+                model=judge_model,
+                rubric="The rationale should explain that the representative made conversational statements that are inappropriate or offensive.",
+                include_input=True,
+            ),
+        ),
+    ),
+    Case(
+        name="text_with_spam",
+        inputs=[TextInput(text_file=get_test_data_path("spam_text.txt"))],
+        metadata={"category": "text_moderation"},
+        evaluators=(
+            TextModerationCheck(
+                expected_pii=False,
+                expected_unfriendly=True,
+                expected_unprofessional=True,
+                expected_spam=True,
+            ),
+            LLMJudge(
+                model=judge_model,
+                rubric="The rationale should explain that the representative made conversational statements that are spammy or promotional.",
+                include_input=True,
+            ),
+        ),
+    ),
+    Case(
+        name="text_with_misinformation",
+        inputs=[TextInput(text_file=get_test_data_path("misinformation_text.txt"))],
+        metadata={"category": "text_moderation"},
+        evaluators=(
+            TextModerationCheck(
+                expected_pii=False,
+                expected_unfriendly=False,
+                expected_unprofessional=True,
+                expected_misinformation=True,
+            ),
+            LLMJudge(
+                model=judge_model,
+                rubric="The rationale should explain that the representative made unverified medical or warranty claims.",
+                include_input=True,
+            ),
+        ),
+    ),   
 ]
 
 
@@ -169,7 +223,7 @@ async def main():
     # Retry configuration for API calls (LLMs can be flaky)
     retry_config = RetryConfig(
         stop=tenacity.stop_after_attempt(10),
-        wait=tenacity.wait_full_jitter(multiplier=0.5, max=15),
+        wait=tenacity.wait_exponential(multiplier=1, min=2, max=30),  # <--- Exponential backoff
     )
 
     # Run all evaluations
@@ -179,6 +233,7 @@ async def main():
     # and both retry_task and retry_evaluators should be set to retry_config
     report = await text_dataset.evaluate(
         run_text_moderation,
+        max_concurrency=2,
         retry_task=retry_config,
         retry_evaluators=retry_config
     )  # TODO

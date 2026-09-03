@@ -80,6 +80,21 @@ class TestTextModerationResult:
         with pytest.raises(ValidationError, match="contains_pii|is_unfriendly|is_unprofessional"):
             TextModerationResult(rationale="Test")
 
+    def test_extended_moderation_flags(self):
+        """Verify extended moderation flags for hate speech, spam, and misinformation"""
+        result = TextModerationResult(
+            rationale="Test rationale",
+            contains_pii=False,
+            is_unfriendly=False,
+            is_unprofessional=False,
+            contains_hate_speech=True,
+            is_spam=True,
+            is_misinformation=True,
+        )
+        assert result.contains_hate_speech is True
+        assert result.is_spam is True
+        assert result.is_misinformation is True
+
 
 class TestImageModerationResult:
     """Test the ImageModerationResult class"""

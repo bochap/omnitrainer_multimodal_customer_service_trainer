@@ -1,4 +1,3 @@
-from typing import Literal
 from pydantic import BaseModel, Field
 
 
@@ -12,6 +11,19 @@ class TextModerationResult(ModerationResult):
     contains_pii: bool = Field(description="Whether the message contains any personally-identifiable information (PII)")
     is_unfriendly: bool = Field(description="Whether unfriendly tone or content was detected")
     is_unprofessional: bool = Field(description="Whether unprofessional tone or content was detected")
+    # Setting default=False on the new fields to maintain ompatibility with the existing unit tests (tests/test_moderation_result.py).
+    contains_hate_speech: bool = Field(
+        default=False,
+        description="Whether hate speech, derogatory slurs, harassment, or discriminatory language targeting protected groups was detected"
+    )
+    is_spam: bool = Field(
+        default=False,
+        description="Whether unsolicited promotional content, phishing links, crypto solicitations, or repetitive spam was detected"
+    )
+    is_misinformation: bool = Field(
+        default=False,
+        description="Whether factually false, deceptive, or unauthorized claims regarding ACME warranty, policies, or product specifications were detected"
+    )
 
 
 class ImageModerationResult(ModerationResult):

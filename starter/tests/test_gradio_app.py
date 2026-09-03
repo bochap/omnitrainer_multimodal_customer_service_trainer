@@ -6,8 +6,7 @@ and integrate the chat functionality properly. Tests run without launching
 the UI server by inspecting the component tree and mocking dependencies.
 """
 
-import pytest
-from unittest.mock import AsyncMock, patch, MagicMock
+from unittest.mock import patch, MagicMock
 import gradio as gr
 
 from multimodal_moderation.gradio_app import create_chat_interface, ChatSessionWithTracing
@@ -47,7 +46,7 @@ def test_chatbot_has_copy_button():
             break
 
     assert chatbot is not None, "Chatbot component not found"
-    assert chatbot.show_copy_button == True, \
+    assert chatbot.show_copy_button, \
         "Chatbot should have show_copy_button=True"
 
 

@@ -21,7 +21,6 @@ import os
 import requests
 import gradio as gr
 import uuid
-from pathlib import Path
 from typing import List, Tuple, Any
 from pydantic_ai.messages import BinaryContent
 import logging
@@ -52,7 +51,7 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 MODERATION_CONFIG = {
     "text": {
         "endpoint": f"{API_BASE_URL}/api/v1/moderate_text",
-        "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii"],
+        "unsafe_flags": ["is_unfriendly", "is_unprofessional", "contains_pii", "contains_hate_speech", "is_spam", "is_misinformation"],
     },
     "image": {
         "endpoint": f"{API_BASE_URL}/api/v1/moderate_image_file",
@@ -338,8 +337,8 @@ class ChatSessionWithTracing:
             except Exception as e:
                 logger.error(f"Error in chat_with_gemini: {str(e)}")
                 raise gr.Error(
-                    f"I'm sorry, but I encountered an error while processing your request. "
-                    f"Please try again or contact ACME support if the issue persists."
+                    "I'm sorry, but I encountered an error while processing your request. "
+                    "Please try again or contact ACME support if the issue persists."
                 )
 
     def end_conversation(self):
@@ -445,6 +444,9 @@ def create_chat_interface() -> gr.Blocks:
                 - Inappropriate content
                 - Personally identifiable information
                 - Unprofessional language
+                - Hate speech & discriminatory remarks
+                - Commercial spam or external links
+                - False or misleading claims (Misinformation)                
                 """
                 )
 

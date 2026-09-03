@@ -11,7 +11,6 @@ import tenacity
 from pydantic_ai.retries import RetryConfig
 
 from multimodal_moderation.agents.audio_agent import moderate_audio
-from multimodal_moderation.types.model_choice import ModelChoice
 from multimodal_moderation.types.moderation_result import AudioModerationResult
 
 sys.path.insert(0, str(Path(__file__).parent.parent))

@@ -9,7 +9,6 @@ Uses pydantic AI's TestModel to avoid real API calls while still validating
 that the Agent is configured correctly with proper instructions and schema.
 """
 
-import pytest
 from pathlib import Path
 from pydantic_ai import models
 from pydantic_ai.models.test import TestModel

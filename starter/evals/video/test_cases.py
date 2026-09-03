@@ -11,7 +11,6 @@ import tenacity
 from pydantic_ai.retries import RetryConfig
 
 from multimodal_moderation.agents.video_agent import moderate_video
-from multimodal_moderation.types.model_choice import ModelChoice
 from multimodal_moderation.types.moderation_result import VideoModerationResult
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
