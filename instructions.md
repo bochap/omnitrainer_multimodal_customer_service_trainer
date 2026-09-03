@@ -5,30 +5,30 @@ Follow the following steps in order:
 Here we setup the Pydantic models for our moderation agents. These are the output schemas for the text, audio, image and video moderation agents we'll work on later.
 
 1. Edit the `types/moderation_result.py` file and replace the `# TODO` sections with your code
-2. Run the test to get feedback on your work. From the root of the starter run: `uv run tests/test_moderation_result.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
+2. Run the test to get feedback on your work. From the root of the starter run: `uv run pytest tests/test_moderation_result.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
 
 ## 2. Text agent
 Here we will complete the setup of the moderation agent for text.
 
 1. Edit the text agent (`agents/text_agent.py`) and replace the # TODO sections
-2. Run the test to get feedback on your work. From the root of the starter run: `uv run tests/test_text_agent.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
+2. Run the test to get feedback on your work. From the root of the starter run: `uv run pytest tests/test_text_agent.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
 
 ## 3. Image agent
 Here we will complete the setup of the moderation agent for images, similarly to what we just did for text. Since this is a multimodal agent, we will use the multimodal capabilities of Pydantic AI and Gemini.
 
 1. Edit the image agent (`agents/image_agent.py`) and replace the `# TODO` sections
-2. Run the test to get feedback on your work. From the root of the starter run: `uv run tests/test_image_agent.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
+2. Run the test to get feedback on your work. From the root of the starter run: `uv run pytest tests/test_image_agent.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
 
 ## 4. Video and Audio agents
 The audio and video agents are already completed. You will just test them to make sure they work.
 
-The Video and Audio agents are already complete. You can test them with `uv run tests/test_video_agent.py` and `uv run tests/test_audio_agent.py`.
+The Video and Audio agents are already complete. You can test them with `uv run pytest tests/test_video_agent.py` and `uv run pytest tests/test_audio_agent.py`.
 
 ## 5. Gradio App
 Here we put everything together into a Gradio app, which constitutes the front-end of our solution.
 
 Edit the gradio app (`gradio_app.py`) and replace all `# TODO` sections. There are quite a few, going from the top to the bottom. Before moving on, make sure you did not left any by searching `TODO` in the file (Crtl+F or Command+F).
-Run the test to get feedback on your work. From the root of the starter run: `uv run tests/test_gradio_app.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
+Run the test to get feedback on your work. From the root of the starter run: `uv run pytest tests/test_gradio_app.py -vv`. If you get an error, read it carefully as it will give you information on what to fix. **DO NOT** continue unless the test passes.
 
 ## 6. Run all tests
 It is now time to verify your work. Run all tests at once with:
